@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import Image from "./Image";
 import Modal from "./Modal";
 import "./styles/hero.css";
+import { useGoogleLogin } from "@moeindana/google-oauth";
 
 const Hero = ({
   className,
@@ -26,6 +27,16 @@ const Hero = ({
     e.preventDefault();
     setVideomodalactive(false);
   };
+
+  const login = useGoogleLogin({
+    onSuccess: (response, error) => {
+      console.log(response);
+      console.log(error);
+    },
+    onError: () => {
+      console.log("Login Failed");
+    },
+  });
 
   const outerClasses = classNames(
     "hero section center-content",
@@ -59,7 +70,11 @@ const Hero = ({
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <div className="button-group">
-                  <Button variant="contained" size="large">
+                  <Button
+                    variant="contained"
+                    onClick={() => login()}
+                    size="large"
+                  >
                     Get started
                   </Button>
                   <Button
