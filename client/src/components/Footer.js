@@ -77,7 +77,7 @@ const Footer = () => {
         <div className="footer-copyright">
           Made by <a href="https://aashishpanthi.info.np">Aashish Panthi</a>.
           Thanks to <a href="https://hashnode.com">Hashnode</a> and{" "}
-          <a href="https://linode.com">Linode</a>
+          <a href="https://linode.com">Linode</a>.
         </div>
       </div>
     </footer>

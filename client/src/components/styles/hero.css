@@ -1,0 +1,42 @@
+.hero-inner > .hero-content + .hero-figure,
+.hero-inner > .hero-figure + .hero-content {
+	margin-top: 50px;
+}
+
+.hero-inner > .hero-figure > a {
+	display: inline-flex;
+	align-items: center;
+	vertical-align: top;
+}
+
+.hero-inner > .hero-figure{
+    text-align: center;
+}
+
+.hero-title{
+    font-weight: bolder;
+    text-align: center;
+    font-size: 64px;
+    margin-top: 15vh;
+}
+
+.hero-subtitle{
+    color: #ddd;
+    font-size: 22px;
+    text-align: center;
+    margin: 20px auto 0px auto;
+    line-height: 30px;
+    max-width: 800px;
+}
+
+.button-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 10px;
+    flex-wrap: wrap;
+}
+
+.button-group button{
+    margin: 10px;
+}
