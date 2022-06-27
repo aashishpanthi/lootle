@@ -1,7 +1,11 @@
-import React from "react";
+// import dependencies
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
-  return <div>Hi</div>;
-}
+// routes
+import Router from "./routes";
+
+const App = () => {
+  return <Router />;
+};
 
 export default App;

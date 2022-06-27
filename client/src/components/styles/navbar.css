@@ -1,0 +1,22 @@
+.navbar{
+    padding: 10px 1rem;
+    margin: auto;
+    max-width:1500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+}
+
+.brand > img{
+    height: 50px;
+    margin-right: 15px;
+}
+
+.brand-name{
+    color: #fff;
+}
