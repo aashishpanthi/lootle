@@ -48,7 +48,7 @@ const Hero = ({
         <div className={innerClasses}>
           <div className="hero-content">
             <h1 className="hero-title">
-              Introducing <span style={{ color: "blue" }}>lootle</span>
+              Introducing <span style={{ color: "royalblue" }}>lootle</span>
             </h1>
             <Stack direction="column">
               <p className="hero-subtitle">
