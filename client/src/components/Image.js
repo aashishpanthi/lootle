@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const Image = ({ className, src, width, height, alt, ...props }) => {
+const Image = ({ className, src, alt, ...props }) => {
   const [loaded, setLoaded] = useState(false);
 
   const image = useRef(null);
@@ -42,10 +42,15 @@ const Image = ({ className, src, width, height, alt, ...props }) => {
       ref={image}
       className={className}
       src={src}
-      width={width}
-      height={height}
       alt={alt}
       onLoad={onLoad}
+      style={{
+        maxWidth: "800px",
+        width: "95%",
+        objectFit: "contain",
+        display: "block",
+        margin: "0 auto",
+      }}
     />
   );
 };

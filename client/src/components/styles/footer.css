@@ -3,6 +3,7 @@ footer{
     margin-top: 1rem;
     margin-left: auto;
     margin-right: auto;
+    padding: 15px;
 }
 
 footer a{
@@ -44,14 +45,11 @@ footer .footer-bottom{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0 25px 0;
+    padding: 10px 0 ;
+    flex-direction: column;
 }
 
-@media screen and (min-width: 500px) {
-    footer .footer-bottom{
-        flex-direction: row-reverse;
-    }
-}
+
 
 footer .footer-bottom{
     display: flex;
@@ -68,10 +66,24 @@ footer .footer-bottom .footer-nav{
 
 footer .footer-copyright{
     color: #ccc;
+    margin: 10px auto;
+    text-align: center;
+    padding:5px;
 }
 
 
 footer .footer-copyright a{
     font-weight: bold;
     transition: .5s ease-out;
+}
+
+@media screen and (min-width: 900px) {
+    footer .footer-bottom{
+        flex-direction: row-reverse;
+    }
+
+    footer .footer-copyright{
+        margin: 10px 0;
+        text-align: left;
+    } 
 }

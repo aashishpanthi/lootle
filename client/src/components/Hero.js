@@ -62,7 +62,13 @@ const Hero = ({
                   <Button variant="contained" size="large">
                     Get started
                   </Button>
-                  <Button variant="contained" size="large" color="success">
+                  <Button
+                    variant="contained"
+                    component="a"
+                    href="https://github.com/aashishpanthi/lootle"
+                    size="large"
+                    color="success"
+                  >
                     View on Github
                   </Button>
                 </div>
@@ -84,8 +90,6 @@ const Hero = ({
                 className="has-shadow"
                 src="/static/video-placeholder.jpg"
                 alt="Hero"
-                width={896}
-                height={504}
               />
             </a>
           </div>

@@ -27,14 +27,18 @@ function FeaturesSection() {
   return (
     <section>
       <h1
-        style={{ fontSize: "48px", textAlign: "center", margin: "50px auto" }}
+        style={{
+          fontSize: "48px",
+          textAlign: "center",
+          margin: "75px auto 10px auto",
+        }}
       >
         Our <span style={{ color: "royalblue" }}>services</span>
       </h1>
 
       <div
         style={{
-          margin: "20px auto",
+          margin: "50px auto 100px auto",
           maxWidth: "1000px",
           display: "flex",
           flexWrap: "wrap",
