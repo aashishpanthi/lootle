@@ -24,7 +24,7 @@ function PromptModal({ title, openModal, handleCloseModal, children }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography variant="h4" component="h2" textAlign="center">
+        <Typography variant="h3" component="h1" textAlign="center">
           {title}
         </Typography>
         {children}

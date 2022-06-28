@@ -75,12 +75,16 @@ const AllTracks = ({ items }) => {
     setPage(0);
   };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div>
       <PromptModal
         title={`Tracks of ${previewItem?.name.substring(0, 15)}...`}
         openModal={openModal}
-        setOpenModal={setOpenModal}
+        handleCloseModal={handleCloseModal}
       >
         <PreviewWindow item={previewItem} />
       </PromptModal>
