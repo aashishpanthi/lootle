@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import { Button, Stack } from "@mui/material";
 import Image from "./Image";
 import Modal from "./Modal";
 import "./styles/hero.css";
-import { useGoogleLogin } from "@moeindana/google-oauth";
+import { useGoogleOneTapLogin } from "@moeindana/google-oauth";
 
 const Hero = ({
   className,
@@ -17,6 +17,7 @@ const Hero = ({
   ...props
 }) => {
   const [videoModalActive, setVideomodalactive] = useState(false);
+  const [loginClicked, setLoginClicked] = useState(false);
 
   const openModal = (e) => {
     e.preventDefault();
@@ -28,15 +29,26 @@ const Hero = ({
     setVideomodalactive(false);
   };
 
-  const login = useGoogleLogin({
-    onSuccess: (response, error) => {
-      console.log(response);
-      console.log(error);
-    },
-    onError: () => {
-      console.log("Login Failed");
-    },
-  });
+  const LoginToStart = () => {
+    useGoogleOneTapLogin({
+      onSuccess: (response) => {
+        console.log(response);
+      },
+      onError: () => {
+        console.log("Login Failed");
+      },
+    });
+
+    return (
+      <Button variant="contained" onClick={handleLogin} size="large">
+        Login to start
+      </Button>
+    );
+  };
+
+  const handleLogin = () => {
+    setLoginClicked(true);
+  };
 
   const outerClasses = classNames(
     "hero section center-content",
@@ -70,13 +82,17 @@ const Hero = ({
               </p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <div className="button-group">
-                  <Button
-                    variant="contained"
-                    onClick={() => login()}
-                    size="large"
-                  >
-                    Get started
-                  </Button>
+                  {loginClicked ? (
+                    <LoginToStart />
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={handleLogin}
+                      size="large"
+                    >
+                      Get started now
+                    </Button>
+                  )}
                   <Button
                     variant="contained"
                     component="a"
