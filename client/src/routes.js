@@ -7,6 +7,7 @@ import NavbarOnlyLayout from "./layouts/NavbarOnlyLayout";
 //import other pages
 import NotFound from "./pages/Page404";
 import Home from "./pages/Home";
+import App from "./pages/App";
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +21,7 @@ export default function Router() {
     {
       path: "/app",
       element: <NavbarOnlyLayout />,
-      children: [{ path: "app", element: <Home /> }],
+      children: [{ path: "dashboard", element: <App /> }],
     },
     { path: "*", element: <NotFound /> },
   ]);

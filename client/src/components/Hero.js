@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import classNames from "classnames";
 import { Button, Stack } from "@mui/material";
 import Image from "./Image";
 import Modal from "./Modal";
 import "./styles/hero.css";
 import { useGoogleOneTapLogin } from "@moeindana/google-oauth";
+import { UserUpdateContext } from "../UserContext";
 
 const Hero = ({
   className,
@@ -19,6 +20,8 @@ const Hero = ({
   const [videoModalActive, setVideomodalactive] = useState(false);
   const [loginClicked, setLoginClicked] = useState(false);
 
+  const setUser = useContext(UserUpdateContext);
+
   const openModal = (e) => {
     e.preventDefault();
     setVideomodalactive(true);
@@ -31,8 +34,8 @@ const Hero = ({
 
   const LoginToStart = () => {
     useGoogleOneTapLogin({
-      onSuccess: (response) => {
-        console.log(response);
+      onSuccess: (res) => {
+        setUser(res);
       },
       onError: () => {
         console.log("Login Failed");

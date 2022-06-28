@@ -1,12 +1,20 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 // @mui
-import { Typography, Container, Box } from "@mui/material";
+import { Container } from "@mui/material";
 // components
 import Page from "../components/Page";
 import Hero from "../components/Hero";
 import FeaturesSection from "../components/FeaturesSection";
+import { UserContext } from "../UserContext";
+import { useContext } from "react";
 
 export default function Home() {
+  const user = useContext(UserContext);
+
+  if (user) {
+    return <Navigate to="/app/dashboard" />;
+  }
+
   return (
     <Page title="Home">
       <Container>
