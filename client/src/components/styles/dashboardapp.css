@@ -1,0 +1,15 @@
+.new-tracker {
+  text-align: right;
+  max-width: 1000px;
+  margin-top: 50px;
+  padding: 20px 25px 0 0;
+  background-color: #fff;
+}
+
+.new-tracker.center {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

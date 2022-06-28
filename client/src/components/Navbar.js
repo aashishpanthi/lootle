@@ -19,7 +19,9 @@ const Navbar = () => {
     <nav className="navbar">
       <Logo name={true} />
       {user ? (
-        <Button onClick={logout}>Logout</Button>
+        <Button variant="outlined" color="warning" onClick={logout}>
+          Logout
+        </Button>
       ) : (
         <GoogleLogin
           onSuccess={(res) => {

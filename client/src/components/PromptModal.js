@@ -15,11 +15,11 @@ const style = {
   color: "#222",
 };
 
-function PromptModal({ title, openModal, setOpenModal, children }) {
+function PromptModal({ title, openModal, handleCloseModal, children }) {
   return (
     <Modal
       open={openModal}
-      onClose={() => setOpenModal(false)}
+      onClose={handleCloseModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >

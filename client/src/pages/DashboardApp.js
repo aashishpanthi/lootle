@@ -6,6 +6,7 @@ import Page from "../components/Page";
 import { Container } from "@mui/material";
 import AddNewTracker from "../components/AddNewTracker";
 import AllTracks from "../components/AllTracks";
+import "../components/styles/dashboardapp.css";
 
 const items = [
   {
@@ -14,6 +15,30 @@ const items = [
     site: "amazon",
     image: "/static/video-placeholder.jpg",
     name: "Macbook air",
+    type: "product",
+    history: [
+      {
+        date: new Date(),
+        price: 110,
+      },
+      {
+        date: new Date(),
+        price: 111,
+      },
+      {
+        date: new Date(),
+        price: 101,
+      },
+    ],
+    demandPrice: 100,
+    informed: false,
+  },
+  {
+    id: 567,
+    url: "https://amazon.com",
+    site: "amazon",
+    image: "/static/video-placeholder.jpg",
+    name: "Macbook pro",
     type: "product",
     history: [
       {
@@ -44,8 +69,8 @@ const App = () => {
   return (
     <Page title="App">
       <Container>
-        <AddNewTracker />
-        <AllTracks items={items} />
+        <AddNewTracker className={items.length === 0 && `center`} />
+        {items.length !== 0 && <AllTracks items={items} />}
       </Container>
     </Page>
   );
