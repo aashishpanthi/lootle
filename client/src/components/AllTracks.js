@@ -2,7 +2,6 @@ import { useState } from "react";
 import PreviewWindow from "./PreviewWindow";
 import PromptModal from "./PromptModal";
 import {
-  Button,
   IconButton,
   Paper,
   Table,
@@ -121,7 +120,7 @@ const AllTracks = ({ items }) => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            {column.id == "action" ? (
+                            {column.id === "action" ? (
                               <>
                                 <IconButton
                                   aria-label="delete"

@@ -68,25 +68,24 @@ const AddNewTracker = ({ className }) => {
       //show button loading
       setSearchLoading(true);
 
+      const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im;
       //check URL
-      let match = details.url.match(
-        /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
-      );
+      let match = details.url.match(regex);
 
       let site = match[1];
 
       console.log(site);
 
       if (
-        site == "amazon.com" ||
-        site == "alibaba.com" ||
-        site == "daraz.com.np" ||
-        site == "flipkart.com"
+        site === "amazon.com" ||
+        site === "alibaba.com" ||
+        site === "daraz.com.np" ||
+        site === "flipkart.com"
       ) {
         //update state
         setIsURLSupported(true);
         setDetails({ ...details, site, type: "product" });
-      } else if (site == "marketwatch.com" || site == "bloomberg.com") {
+      } else if (site === "marketwatch.com" || site === "bloomberg.com") {
         //update state
         setIsURLSupported(true);
         setDetails({ ...details, site, type: "stock" });

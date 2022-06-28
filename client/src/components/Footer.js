@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
 import "./styles/footer.css";
