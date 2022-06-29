@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "This is a web application which keeps track of the current price of different items",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Aashish Panthi",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.1"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "mongoose": "^6.4.1"
   }
 }
