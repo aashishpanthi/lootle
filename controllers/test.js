@@ -1,6 +1,6 @@
 import Site from "../models/SiteModel.js";
 import Joi from "joi";
-import { getPrice } from "../utils/getPrice.js";
+import { getPNI } from "../utils/getPrice.js";
 
 // Get a specific Track by id
 export const testURL = async (req, res, next) => {
@@ -28,11 +28,9 @@ export const testURL = async (req, res, next) => {
     }
 
     //test url
+    const { name, price, image } = await getPNI(url, site);
 
-    console.log("Break point");
-    const price = await getPrice(url, site.priceLocation, site.name);
-
-    if (!price) {
+    if (!price || !name) {
       return res
         .status(400)
         .json({ message: "Invalied url or check if the item is available" });
@@ -42,6 +40,8 @@ export const testURL = async (req, res, next) => {
       type: site.type,
       site: site.name,
       price,
+      name,
+      image,
     };
 
     res.status(200).json(resObject);

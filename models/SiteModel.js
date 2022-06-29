@@ -17,6 +17,13 @@ const SiteSchema = new mongoose.Schema({
     type: String,
     required: [true, "Class or id is required ro get the price"],
   },
+  nameLocation: {
+    type: String,
+    required: [true, "Location of name is required"],
+  },
+  imageLocation: {
+    type: String,
+  },
 });
 
 const Site = mongoose.model("Site", SiteSchema);
