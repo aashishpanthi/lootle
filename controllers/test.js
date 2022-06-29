@@ -22,24 +22,29 @@ export const testURL = async (req, res, next) => {
 
   try {
     const site = await Site.findOne({ name: domain });
+
     if (!site) {
       return res.status(404).json({ message: "Site doesn't exist" });
     }
 
     //test url
-    try {
-      const price = await getPrice(url, site.priceLocation);
-      if (!price) return res.status(400).json({ message: "Invalied url" });
 
-      const resObject = {
-        type: site.type,
-        site: site.name,
-        price,
-      };
-      res.status(200).json(resObject);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
+    console.log("Break point");
+    const price = await getPrice(url, site.priceLocation, site.name);
+
+    if (!price) {
+      return res
+        .status(400)
+        .json({ message: "Invalied url or check if the item is available" });
     }
+
+    const resObject = {
+      type: site.type,
+      site: site.name,
+      price,
+    };
+
+    res.status(200).json(resObject);
   } catch (error) {
     res.status(400).json({ message: "Request failed", error: error });
   }

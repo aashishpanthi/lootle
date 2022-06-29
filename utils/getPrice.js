@@ -1,17 +1,27 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-export const getPrice = async (URL, priceLocation) => {
+export const getPrice = async (URL, priceLocation, site) => {
   try {
-    const response = await axios.get(URL);
+    const { data } = await axios.get(URL);
 
-    const html = response.data;
+    const $ = cheerio.load(data);
 
-    const $ = cheerio.load(html);
-
-    const price = $(priceLocation)
+    let price = $(priceLocation)
       .text()
-      .replace(/([$,])/g, "");
+      .replace(/([$,₹])/g, "");
+
+    if (site === "flipkart.com") {
+      try {
+        const { data } = await axios.get(
+          "https://api.exchangerate.host/convert?from=INR&to=USD"
+        );
+
+        return price * data.result;
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     return price;
   } catch (error) {

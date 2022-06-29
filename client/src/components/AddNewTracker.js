@@ -7,7 +7,7 @@ import {
   OutlinedInput,
   Stack,
 } from "@mui/material";
-
+import axios from "axios";
 import { LoadingButton } from "@mui/lab";
 
 import SearchIcon from "@mui/icons-material/SearchSharp";
@@ -38,7 +38,7 @@ const AddNewTracker = ({ className }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     //check state
@@ -76,25 +76,20 @@ const AddNewTracker = ({ className }) => {
 
       console.log(site);
 
-      if (
-        site === "amazon.com" ||
-        site === "alibaba.com" ||
-        site === "daraz.com.np" ||
-        site === "flipkart.com"
-      ) {
-        //update state
-        setIsURLSupported(true);
-        setDetails({ ...details, site, type: "product" });
-      } else if (site === "marketwatch.com" || site === "bloomberg.com") {
-        //update state
-        setIsURLSupported(true);
-        setDetails({ ...details, site, type: "stock" });
-      } else {
-        alert("Site not supported");
+      try {
+        const data = await axios.post(`http://localhost:3001/api/test`, {
+          url: details.url,
+        });
+        console.log(data);
+      } catch (error) {
+        console.log(error);
       }
 
-      //turnoff button loading
-      setSearchLoading(false);
+      // setIsURLSupported(true);
+      // setDetails({ ...details, site, type: "stock" });
+
+      // //turnoff button loading
+      // setSearchLoading(false);
     }
   };
 
