@@ -1,12 +1,15 @@
 import Site from "../models/SiteModel.js";
 import Joi from "joi";
+import { getPrice } from "../utils/getPrice.js";
 
 // Get a specific Track by id
 export const testURL = async (req, res, next) => {
+  console.log(req.body.url);
+
   const { value: url, error } = Joi.string()
     .uri()
     .required()
-    .validate(req.params.id);
+    .validate(req.body.url);
   if (error) return res.status(400).json({ error: error.details, url });
 
   const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im;
@@ -23,12 +26,20 @@ export const testURL = async (req, res, next) => {
       return res.status(404).json({ message: "Site doesn't exist" });
     }
 
-    const resObject = {
-      type: site.type,
-      site: site.name,
-    };
+    //test url
+    try {
+      const price = await getPrice(url, site.priceLocation);
+      if (!price) return res.status(400).json({ message: "Invalied url" });
 
-    res.status(200).json(resObject);
+      const resObject = {
+        type: site.type,
+        site: site.name,
+        price,
+      };
+      res.status(200).json(resObject);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
   } catch (error) {
     res.status(400).json({ message: "Request failed", error: error });
   }
