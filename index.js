@@ -6,6 +6,8 @@ import cors from "cors";
 
 //router imports
 import trackRoutes from "./routes/tracks.js";
+import siteRoutes from "./routes/site.js";
+import testRoutes from "./routes/test.js";
 
 //making instance
 const app = express();
@@ -22,6 +24,8 @@ app.use(
 
 //inserting  router
 app.use("/api/tracks", trackRoutes);
+app.use("/api/test", testRoutes);
+app.use("/api/sites", siteRoutes);
 
 //Server listening to port
 const port = process.env.PORT || 3001;
