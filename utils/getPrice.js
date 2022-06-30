@@ -8,6 +8,14 @@ export const getPNI = async (URL, site) => {
     const { data } = await axios.get(URL);
 
     const $ = cheerio.load(data);
+    let image;
+
+    let name = $(nameLocation)
+      .text()
+      .trim()
+      .replace(/(<([^>]+)>)/gi, "");
+
+    console.log(name);
 
     let price = Number(
       $(priceLocation)
@@ -16,13 +24,6 @@ export const getPNI = async (URL, site) => {
     );
 
     console.log(price);
-
-    let name = $(nameLocation)
-      .text()
-      .trim()
-      .replace(/(<([^>]+)>)/gi, "");
-
-    console.log(name);
 
     if (site.name == "flipkart.com") {
       try {
@@ -37,14 +38,12 @@ export const getPNI = async (URL, site) => {
     }
 
     if (type === "product") {
-      let image = $(imageLocation).attr("src");
+      image = $(imageLocation).attr("src");
 
       console.log(image);
-
-      return { price, name, image };
     }
 
-    return { price, name };
+    return { price, name, image };
   } catch (error) {
     throw error;
   }
