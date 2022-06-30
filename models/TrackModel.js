@@ -29,7 +29,10 @@ const TrackSchema = new mongoose.Schema({
   history: [
     {
       price: Number,
-      date: Date.now,
+      date: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
   demandPrice: {
