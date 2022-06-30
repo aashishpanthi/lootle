@@ -36,7 +36,7 @@ const TrackSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide your budget"],
   },
-  history: {
+  informed: {
     type: Boolean,
     default: false,
   },
