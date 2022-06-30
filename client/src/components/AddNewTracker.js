@@ -17,7 +17,7 @@ import { useState, useContext } from "react";
 import PromptModal from "./PromptModal";
 import { UserContext } from "../UserContext";
 
-const AddNewTracker = ({ className }) => {
+const AddNewTracker = ({ className, toast }) => {
   const user = useContext(UserContext);
 
   const [allSubmitLoading, setAllSubmitLoading] = useState(false);
@@ -56,40 +56,45 @@ const AddNewTracker = ({ className }) => {
           user: user.email,
         };
 
-        //save the data
-        //axios.post(finalObject)
+        try {
+          //save the data
+          await axios.post("/api/tracks", finalObject);
 
-        alert(
-          `You will be notified via email when price of your ${details.type} drops below $${details.demandPrice}`
-        );
-        handleCloseModal();
+          alert(
+            `You will be notified via email when price of your ${details.type} drops below $${details.demandPrice}`
+          );
+
+          toast({
+            open: true,
+            message: "Added a new tracker",
+          }); // open a toast
+
+          handleCloseModal();
+        } catch (error) {
+          console.log(error);
+          setAllSubmitLoading(false);
+        }
       }
     } else {
       //show button loading
       setSearchLoading(true);
 
-      const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im;
-      //check URL
-      let match = details.url.match(regex);
-
-      let site = match[1];
-
-      console.log(site);
-
       try {
-        const data = await axios.post(`http://localhost:3001/api/test`, {
+        const { data } = await axios.post(`/api/test`, {
           url: details.url,
         });
-        console.log(data);
+
+        const { type, site, name, image } = data;
+
+        setDetails({ ...details, site, type, name, image });
+        setIsURLSupported(true);
+        console.log({ ...details, site, type, name, image });
       } catch (error) {
         console.log(error);
       }
 
-      // setIsURLSupported(true);
-      // setDetails({ ...details, site, type: "stock" });
-
-      // //turnoff button loading
-      // setSearchLoading(false);
+      //turnoff button loading
+      setSearchLoading(false);
     }
   };
 

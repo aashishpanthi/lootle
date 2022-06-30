@@ -13,6 +13,8 @@ const style = {
   borderRadius: 1,
   maxWidth: "95%",
   color: "#222",
+  maxHeight: "90vh",
+  overflowY: "scroll",
 };
 
 function PromptModal({ title, openModal, handleCloseModal, children }) {

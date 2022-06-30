@@ -1,66 +1,42 @@
-import React from "react";
 import { UserContext } from "../UserContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import Page from "../components/Page";
-import { Container } from "@mui/material";
+import { Container, IconButton, Snackbar } from "@mui/material";
 import AddNewTracker from "../components/AddNewTracker";
 import AllTracks from "../components/AllTracks";
 import "../components/styles/dashboardapp.css";
-
-const items = [
-  {
-    id: 123,
-    url: "https://amazon.com",
-    site: "amazon",
-    image: "/static/video-placeholder.jpg",
-    name: "Macbook air",
-    type: "product",
-    history: [
-      {
-        date: new Date(),
-        price: 110,
-      },
-      {
-        date: new Date(),
-        price: 111,
-      },
-      {
-        date: new Date(),
-        price: 101,
-      },
-    ],
-    demandPrice: 100,
-    informed: false,
-  },
-  {
-    id: 567,
-    url: "https://amazon.com",
-    site: "amazon",
-    image: "/static/video-placeholder.jpg",
-    name: "Macbook pro",
-    type: "product",
-    history: [
-      {
-        date: new Date(),
-        price: 110,
-      },
-      {
-        date: new Date(),
-        price: 111,
-      },
-      {
-        date: new Date(),
-        price: 101,
-      },
-    ],
-    demandPrice: 100,
-    informed: false,
-  },
-];
+import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 const App = () => {
   const user = useContext(UserContext);
+  const [items, setItems] = useState([]);
+
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+  });
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
+  const getItems = async () => {
+    const { data } = await axios.get(`/api/tracks/user/${user.email}`);
+    setItems(data);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={() => setToast({ message: "", open: false })}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   if (!user) {
     return <Navigate to="/" />;
@@ -69,8 +45,20 @@ const App = () => {
   return (
     <Page title="App">
       <Container>
-        <AddNewTracker className={items.length === 0 && `center`} />
-        {items.length !== 0 && <AllTracks items={items} />}
+        <AddNewTracker
+          toast={setToast}
+          className={items.length === 0 && `center`}
+        />
+        {items.length !== 0 && (
+          <AllTracks items={items} setItems={setItems} toast={setToast} />
+        )}
+        <Snackbar
+          open={toast.open}
+          autoHideDuration={6000}
+          onClose={() => setToast({ message: "", open: false })}
+          message={toast.message}
+          action={action}
+        />
       </Container>
     </Page>
   );

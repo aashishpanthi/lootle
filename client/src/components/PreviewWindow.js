@@ -11,7 +11,13 @@ function PreviewWindow({ item }) {
           <img
             src={image}
             alt={name}
-            style={{ maxWidth: "400px", minWidth: "300px", width: "75%" }}
+            style={{
+              maxWidth: "400px",
+              minWidth: "300px",
+              maxHeight: "300px",
+              objectFit: "contain",
+              width: "75%",
+            }}
           />
         )}
 
@@ -32,8 +38,11 @@ function PreviewWindow({ item }) {
             <strong>Site: </strong> {site}
           </Typography>
 
-          <Typography component="p" variant="body2">
-            <strong>Link: </strong> <a href={url}>{url}</a>
+          <Typography component="p" variant="body2" maxWidth="100%">
+            <strong>Link: </strong>{" "}
+            <a href={url} target="_blank" style={{ maxWidth: "100%" }}>
+              {url.substring(0, 100)}...
+            </a>
           </Typography>
         </div>
       </Stack>

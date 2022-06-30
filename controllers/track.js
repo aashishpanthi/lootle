@@ -52,18 +52,18 @@ export const addTrack = async (req, res, next) => {
     image: Joi.string(),
   });
 
-  const { value: TrackInfo, error } = schema.validate(req.body);
+  const { value: trackInfo, error } = schema.validate(req.body);
   if (error)
-    return res.status(400).json({ error: error.details, ...TrackInfo });
+    return res.status(400).json({ error: error.details, ...trackInfo });
 
-  const Track = new Track(TrackInfo);
+  const track = new Track(trackInfo);
   try {
-    await Track.save((err, Track) => {
-      res.status(200).json({ success: true, id: Track._id });
+    await track.save((err, Track) => {
+      res.status(200).json({ success: true, id: track._id });
     });
   } catch (err) {
     next(err);
-    res.status(400).json({ error: err, ...TrackInfo });
+    res.status(400).json({ error: err, ...trackInfo });
   }
 };
 

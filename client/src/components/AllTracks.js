@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PreviewWindow from "./PreviewWindow";
 import PromptModal from "./PromptModal";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
+import axios from "axios";
 
 const columns = [
   {
@@ -46,21 +47,40 @@ function createData(name, site, type, informStatus) {
   return { name, site, type, informed };
 }
 
-const AllTracks = ({ items }) => {
+const AllTracks = ({ items, toast, setItems }) => {
   const [previewItem, setPreviewItem] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [rows, setRows] = useState([]);
 
-  const rows = items.map(({ name, site, type, informed }) =>
-    createData(name, site, type, informed)
-  );
+  useEffect(() => {
+    const data = items.map(({ name, site, type, informed }) =>
+      createData(name, site, type, informed)
+    );
+
+    setRows(data);
+  }, [items]);
 
   const handleItemPreview = (item) => {
     setPreviewItem(item);
     setOpenModal(true);
   };
 
-  const handleDeleteItem = (item) => {
-    console.log(item);
+  const handleDeleteItem = async (item) => {
+    try {
+      await axios.delete(`/api/tracks/${item._id}`);
+      console.log(items);
+
+      toast({
+        open: true,
+        message: "Deleted the tracker",
+      }); // open a toast
+
+      setItems(items.filter((i) => i !== item));
+
+      console.log("clicked");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const [page, setPage] = useState(0);

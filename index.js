@@ -15,12 +15,7 @@ dotenv.config();
 
 //middleware
 app.use(express.json({ extented: false }));
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 //inserting  router
 app.use("/api/tracks", trackRoutes);
