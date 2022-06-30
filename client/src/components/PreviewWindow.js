@@ -33,12 +33,19 @@ function PreviewWindow({ item }) {
           />
         )}
 
-        <div style={{ minWidth: "300px", marginLeft: "25px", flex: 1 }}>
-          <Typography component="h2" variant="h4">
+        <div
+          style={{
+            minWidth: "300px",
+            marginLeft: "25px",
+            marginTop: "20px",
+            flex: 1,
+          }}
+        >
+          <Typography component="h1" variant="h5">
             {name}
           </Typography>
 
-          <Typography component="p" variant="h6" color="Highlight">
+          <Typography component="p" variant="h6" color="InfoText">
             <strong>Your budget: </strong>${demandPrice}
           </Typography>
 
