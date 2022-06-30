@@ -12,6 +12,8 @@ function PreviewWindow({ item }) {
         label: "Price ($)",
         data: history.map((h) => h.price),
         pointBackgroundColor: "royalblue",
+        borderColor: "gray",
+        pointHoverBackgroundColor: "blue",
       },
     ],
   });

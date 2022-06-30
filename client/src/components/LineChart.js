@@ -36,14 +36,7 @@ const LineChart = ({ data }) => {
           },
           x: {
             ticks: {
-              callback: (value) => value,
-            },
-          },
-        },
-        tooltips: {
-          callbacks: {
-            title: function (t, d) {
-              return d.labels[t[0].index];
+              callback: (value) => `${data.labels[value]}`.substring(4, 10),
             },
           },
         },
