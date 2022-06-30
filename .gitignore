@@ -6,7 +6,7 @@
 .pnp.js
 
 # production
-/build
+client/build
 
 # misc
 .DS_Store
