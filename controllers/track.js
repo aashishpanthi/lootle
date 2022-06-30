@@ -58,7 +58,7 @@ export const addTrack = async (req, res, next) => {
 
   const track = new Track(trackInfo);
   try {
-    await track.save((err, Track) => {
+    await track.save((err, track) => {
       res.status(200).json({ success: true, id: track._id });
     });
   } catch (err) {

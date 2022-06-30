@@ -6,6 +6,7 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { LoadingButton } from "@mui/lab";
@@ -46,19 +47,17 @@ const AddNewTracker = ({ className, toast }) => {
       setAllSubmitLoading(true);
 
       //check the demand price and validate
-      if (details.demandPrice < 1) {
+      if (details.demandPrice < 1 || details.demandPrice > details.price) {
         //Notify user about their wrong price input
         alert("Please enter the valid amount");
+        setAllSubmitLoading(false);
       } else {
-        //make a final object
-        const finalObject = {
-          ...details,
-          user: user.email,
-        };
-
         try {
           //save the data
-          await axios.post("/api/tracks", finalObject);
+          const { data } = await axios.post(`/api/tracks`, {
+            ...details,
+            user: user.email,
+          });
 
           alert(
             `You will be notified via email when price of your ${details.type} drops below $${details.demandPrice}`
@@ -71,7 +70,7 @@ const AddNewTracker = ({ className, toast }) => {
 
           handleCloseModal();
         } catch (error) {
-          console.log(error);
+          console.log(error.response.request._response);
           setAllSubmitLoading(false);
         }
       }
@@ -84,13 +83,12 @@ const AddNewTracker = ({ className, toast }) => {
           url: details.url,
         });
 
-        const { type, site, name, image } = data;
+        const { type, site, name, image, price } = data;
 
-        setDetails({ ...details, site, type, name, image });
+        setDetails({ ...details, site, type, name, image, price });
         setIsURLSupported(true);
-        console.log({ ...details, site, type, name, image });
       } catch (error) {
-        console.log(error);
+        alert(error.message);
       }
 
       //turnoff button loading
@@ -143,39 +141,49 @@ const AddNewTracker = ({ className, toast }) => {
           </FormControl>
 
           {isURLSupported && (
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              my={2}
-            >
-              <FormControl sx={{ mr: 2 }} fullWidth>
-                <InputLabel htmlFor="product-new-price">
-                  Price below which you will buy it
-                </InputLabel>
-                <OutlinedInput
-                  id="product-new-price"
-                  name="demandPrice"
-                  type="number"
-                  value={details.demandPrice}
-                  onChange={handleDetails}
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  label="Amount below which you will buy"
-                />
-              </FormControl>
-              <LoadingButton
-                loading={allSubmitLoading}
-                startIcon={<ContentPasteSearchIcon />}
-                variant="contained"
-                type="submit"
-                style={{ padding: "15px 30px" }}
-                color="primary"
+            <>
+              <Typography
+                component="p"
+                variant="h6"
+                color="Highlight"
+                sx={{ mt: 2 }}
               >
-                Track
-              </LoadingButton>
-            </Stack>
+                <strong>Current price: </strong>${details.price}
+              </Typography>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                my={2}
+              >
+                <FormControl sx={{ mr: 2 }} fullWidth>
+                  <InputLabel htmlFor="product-new-price">
+                    Price below which you will buy it
+                  </InputLabel>
+                  <OutlinedInput
+                    id="product-new-price"
+                    name="demandPrice"
+                    type="number"
+                    value={details.demandPrice}
+                    onChange={handleDetails}
+                    startAdornment={
+                      <InputAdornment position="start">$</InputAdornment>
+                    }
+                    label="Amount below which you will buy"
+                  />
+                </FormControl>
+                <LoadingButton
+                  loading={allSubmitLoading}
+                  startIcon={<ContentPasteSearchIcon />}
+                  variant="contained"
+                  type="submit"
+                  style={{ padding: "15px 30px" }}
+                  color="primary"
+                >
+                  Track
+                </LoadingButton>
+              </Stack>
+            </>
           )}
         </form>
       </PromptModal>

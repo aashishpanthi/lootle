@@ -23,8 +23,14 @@ const App = () => {
   }, []);
 
   const getItems = async () => {
-    const { data } = await axios.get(`/api/tracks/user/${user.email}`);
-    setItems(data);
+    try {
+      const { data } = await axios.get(`/api/tracks/user/${user.email}`);
+
+      setItems(data);
+    } catch (error) {
+      console.log("hi");
+      console.log(error);
+    }
   };
 
   const action = (

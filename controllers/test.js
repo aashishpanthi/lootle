@@ -23,8 +23,6 @@ export const testURL = async (req, res, next) => {
   try {
     const site = await Site.findOne({ name: domain });
 
-    console.log(site);
-
     if (!site) {
       return res.status(404).json({ message: "Site doesn't exist" });
     }
