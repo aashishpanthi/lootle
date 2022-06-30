@@ -76,8 +76,6 @@ const AllTracks = ({ items, toast, setItems }) => {
       }); // open a toast
 
       setItems(items.filter((i) => i !== item));
-
-      console.log("clicked");
     } catch (error) {
       console.log(error);
     }

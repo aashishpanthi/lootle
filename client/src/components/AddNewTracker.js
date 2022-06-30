@@ -31,6 +31,8 @@ const AddNewTracker = ({ className, toast }) => {
     demandPrice: 0,
   });
 
+  const [fetchedPrice, setfetchedPrice] = useState(0);
+
   const handleDetails = (e) => {
     const { name, value } = e.target;
     setDetails({
@@ -85,7 +87,9 @@ const AddNewTracker = ({ className, toast }) => {
 
         const { type, site, name, image, price } = data;
 
-        setDetails({ ...details, site, type, name, image, price });
+        setfetchedPrice(price);
+
+        setDetails({ ...details, site, type, name, image });
         setIsURLSupported(true);
       } catch (error) {
         alert(error.message);
@@ -148,7 +152,7 @@ const AddNewTracker = ({ className, toast }) => {
                 color="Highlight"
                 sx={{ mt: 2 }}
               >
-                <strong>Current price: </strong>${details.price}
+                <strong>Current price: </strong>${fetchedPrice}
               </Typography>
               <Stack
                 direction="row"

@@ -20,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     getItems();
-  }, []);
+  }, [toast]);
 
   const getItems = async () => {
     try {
@@ -28,7 +28,6 @@ const App = () => {
 
       setItems(data);
     } catch (error) {
-      console.log("hi");
       console.log(error);
     }
   };
