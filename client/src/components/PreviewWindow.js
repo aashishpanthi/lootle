@@ -1,12 +1,24 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import React from "react";
+import { useState } from "react";
+import LineChart from "./LineChart";
 
 function PreviewWindow({ item }) {
   const { name, site, image, url, type, history, demandPrice, informed } = item;
 
+  const [priceHistory, setPriceHistory] = useState({
+    labels: history.map((h) => new Date(h.date).toString()),
+    datasets: [
+      {
+        label: "Price ($)",
+        data: history.map((h) => h.price),
+        pointBackgroundColor: "royalblue",
+      },
+    ],
+  });
+
   return (
     <div className="preview-window">
-      <Stack direction="row" alignItems="center" my={2}>
+      <Stack direction="row" alignItems="center" flexWrap="wrap" my={2}>
         {type === "product" && (
           <img
             src={image}
@@ -14,7 +26,7 @@ function PreviewWindow({ item }) {
             style={{
               maxWidth: "400px",
               minWidth: "300px",
-              maxHeight: "300px",
+              maxHeight: "275px",
               objectFit: "contain",
               width: "75%",
             }}
@@ -52,6 +64,10 @@ function PreviewWindow({ item }) {
           History of price
         </Typography>
       </Divider>
+
+      <div style={{ width: "100%", marginTop: "20px" }}>
+        <LineChart data={priceHistory} />
+      </div>
     </div>
   );
 }
