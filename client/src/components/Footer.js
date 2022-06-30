@@ -58,7 +58,7 @@ const Footer = () => {
         <nav>
           <ul className="footer-nav">
             <li>
-              <Link to="#0">Contact</Link>
+              <a href="https://linkedin.com/in/aashishpanthi">Contact</a>
             </li>
             <li>
               <a href="https://blog.aashish-panthi.com.np/introducing-lootle">
