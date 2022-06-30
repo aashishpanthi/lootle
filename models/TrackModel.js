@@ -21,19 +21,19 @@ const TrackSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide the tracking website"],
   },
-  image: {
-    type: String,
-  },
+  image: String,
   type: {
     type: String,
     default: [true, "Please provide if stock or product needs to be tracked"],
   },
-  history: {
-    type: Array,
-    default: [],
-  },
+  history: [
+    {
+      price: Number,
+      date: Date.now,
+    },
+  ],
   demandPrice: {
-    type: String,
+    type: Number,
     required: [true, "Please provide your budget"],
   },
   informed: {
