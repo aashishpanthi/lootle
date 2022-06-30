@@ -31,6 +31,8 @@ function PreviewWindow({ item }) {
               maxHeight: "275px",
               objectFit: "contain",
               width: "75%",
+              margin: "0 auto",
+              display: "block",
             }}
           />
         )}
@@ -38,7 +40,7 @@ function PreviewWindow({ item }) {
         <div
           style={{
             minWidth: "300px",
-            marginLeft: "25px",
+            margin: "20px auto",
             marginTop: "20px",
             flex: 1,
           }}
